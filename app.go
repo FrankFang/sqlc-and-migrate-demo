@@ -20,7 +20,7 @@ func run() error {
 	ctx := context.Background()
 
 	// 可以改数据库地址吗？
-	db, err := sql.Open("sqlite3", ":memory:")
+	db, err := sql.Open("sqlite3", "xxx.db")
 	if err != nil {
 		return err
 	}
@@ -62,6 +62,7 @@ func run() error {
 	updatedAuthor, err := queries.UpdateAuthor(ctx, tutorial.UpdateAuthorParams{
 		ID:   fetchedAuthor.ID,
 		Name: "Frank",
+		Bio:  sql.NullString{String: "", Valid: true},
 	})
 
 	if err != nil {

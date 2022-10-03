@@ -83,8 +83,9 @@ func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
 
 const updateAuthor = `-- name: UpdateAuthor :one
 UPDATE authors
-set name = ?,
-bio = ?
+set
+  name = coalesce(@name, name),
+  bio = coalesce(@bio, bio)
 WHERE id = ?
 RETURNING id, name, bio
 `

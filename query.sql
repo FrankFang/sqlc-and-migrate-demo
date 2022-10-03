@@ -20,7 +20,8 @@ WHERE id = ?;
 
 -- name: UpdateAuthor :one
 UPDATE authors
-set name = ?,
-bio = ?
+set
+  name = coalesce(@name, name),
+  bio = coalesce(@bio, bio)
 WHERE id = ?
 RETURNING *;
